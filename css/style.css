@@ -1,0 +1,278 @@
+/* Подключаем шрифт */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* Убираем отступы и скрываем горизонтальную прокрутку */
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* запрещаем прокрутку вправо/влево */
+}
+
+/* Шапка */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+}
+
+/* Верхняя часть шапки (кнопка меню) */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 100%;  /* больше не ограничиваем ширину */
+  align-items: center;
+  box-sizing: border-box; /* учитываем padding и border */
+}
+
+/* Основное меню */
+.main-nav {
+    border-bottom: 0.5px solid;
+  height: 100px;
+  padding: 10px 80px;        /* убираем 100px */
+  background-color: #fefaf1;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Списки меню */
+.main-nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ссылки */
+.main-nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 400;
+}
+
+/* Логотип по центру */
+.logo-center a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+/* Кнопка мобильного меню */
+.menu-toggle {
+  display: none; /* включить через медиазапрос для мобильного */
+}
+#hero_image {
+    background-color: #fefaf1;
+}
+
+.hero {
+    background-color: #fefaf1;
+    padding: 40px 0;
+}
+
+.hero .container{
+  height: 90vh;
+  width: 95%;
+  max-width: 1500px;
+  margin: 0px auto 0 auto;
+  padding: 20px 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-image: url('../images/cleaning2.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+  box-sizing: border-box;  /* важно! */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Текст и кнопка внутри */
+.hero-content h1 {
+  font-size: 42px;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 20px;
+  margin: 0 0 30px 0;
+}
+
+/* Кнопка */
+.hero-button span {
+  display: inline-block;
+  padding: 20px 50px;      /* увеличиваем внутренние отступы */
+  background-color: #f5a623;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 10px;      /* крупные закруглённые края */
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 18px;          /* при необходимости увеличить текст */
+}
+
+.hero-button span:hover {
+  background-color: #e6951d;
+}
+
+.advantages {
+    background-color: #fefaf1;
+}
+
+.advantages .container{
+    
+  max-width: 800px;           /* ширина блока */
+  margin: 0 auto;             /* центрируем блок на странице */
+  padding: 100px 20px;
+}
+
+.advantages h2 {
+  text-align: center;         /* заголовок блока по центру */
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 60px;
+}
+
+.advantages p.intro {
+  text-align: center;       /* текст по центру внутри абзаца */
+  max-width: 80%;           /* ограничиваем ширину */
+  margin: 0 auto 80px auto; /* сверху 0, слева/справа auto, снизу 80px */
+  font-size: 18px;
+  color: #555;
+}
+
+/* Список преимуществ */
+.advantages ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;     /* элементы идут друг под другом */
+  gap: 30px;                  /* расстояние между элементами */
+}
+
+/* Один элемент списка: иконка слева, текст справа */
+.advantages ul li {
+  display: flex;              /* иконка слева, текст справа */
+  align-items: flex-start;
+  gap: 20px;   
+  padding: 30px  0;               /* расстояние между иконкой и текстом */
+}
+
+/* Иконка */
+.advantages ul li img {
+  width: 80px;
+  height: auto;
+  flex-shrink: 0;             /* чтобы не сжималась */
+}
+
+/* Текстовая часть: заголовок сверху, параграф снизу */
+.advantages ul li .text {
+  display: flex;
+  flex-direction: column;
+}
+
+.advantages ul li .text h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.advantages ul li .text p {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Контейнер блока */
+.why-us {
+  max-width: 1300px;         /* ширина блока */
+  margin: 0 auto 150px auto;
+  padding: 50px 20px;
+}
+
+/* Заголовок и интро */
+.why-us h2 {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+  margin-bottom: 60px;
+}
+
+.why-us p.intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 120px auto;
+  font-size: 18px;
+  color: #555;
+}
+
+/* Список элементов */
+.why-us ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;           /* перенос элементов */
+  gap: 40px;                 /* расстояние между элементами */
+  justify-content: center;   /* центрируем ряды */
+}
+
+/* Элемент списка */
+.why-us ul li {
+  display: flex;             /* иконка слева, текст справа */
+  align-items: flex-start;
+  gap: 15px;
+  width: calc(50% - 20px);  /* по два элемента в ряд, учитываем gap */
+  box-sizing: border-box;
+  margin-bottom: 20px;       /* отступ снизу между рядами */
+}
+
+/* Иконка */
+.why-us ul li img {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+/* Текст */
+.why-us ul li .text {
+  display: flex;
+  flex-direction: column;
+}
+
+.why-us ul li .text h3 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.why-us ul li .text p {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Адаптив: на узких экранах один элемент в ряд */
+@media (max-width: 768px) {
+  .why-us ul li {
+    width: 100%;
+  }
+}
