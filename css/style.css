@@ -1,57 +1,69 @@
-/* Подключаем шрифт */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
 
-:root{
---bs-primary:#A9D3F8;
+:root {
+  --bs-primary: #A9D3F8;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Убираем отступы и скрываем горизонтальную прокрутку */
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* запрещаем прокрутку вправо/влево */
+  overflow-x: hidden;
 }
 
-/* Шапка */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 0;
 }
 
-/* Верхняя часть шапки (кнопка меню) */
+.site-header.scrolled {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
 .header-top {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 100%;  /* больше не ограничиваем ширину */
+  max-width: 100%;
   align-items: center;
-  box-sizing: border-box; /* учитываем padding и border */
+  box-sizing: border-box;
 }
 
-/* Основное меню */
 .main-nav {
-    /*border-bottom: 0.5px solid;*/
   height: 100px;
-  padding: 10px 80px;        /* убираем 100px */
+  padding: 10px 80px;
   background-color: #ffffff;
   font-size: 14px;
   display: flex;
-  align-items: center;  
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   margin: 0;
   box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
 }
 
-/* Списки меню */
+.header-top .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 80px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+
 .main-nav ul {
   display: flex;
   list-style: none;
@@ -60,78 +72,175 @@ body {
   margin: 0;
 }
 
-.main-nav li{
-  border: 2px solid #3982c2;   /* рамка вокруг текста */
-  border-radius: 50px;          /* делает овальную форму */
-  padding: 8px 20px;            /* внутренние отступы для высоты и ширины */
-  transition: all 0.3s ease;    /* плавная анимация при наведении */
+.main-nav li {
+  border: 2px solid #3982c2;
+  border-radius: 50px;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
 }
 
-.main-nav li:hover{
-  background-color: #3982c2c3;    /* фон становится синим */
-  color: #fff;                  /* текст белым */
+.main-nav li:hover {
+  background-color: #3982c2c3;
+  color: #fff;
 }
-/* Ссылки */
+
 .main-nav a {
   text-decoration: none;
   color: #3982c2;
   font-weight: 400;
 }
 
-/* Логотип по центру */
 .logo-center a {
-  font-weight:bolder;
+  font-weight: bolder;
   font-size: 26px;
   text-decoration: none;
   color: #3982c2;
 }
 
-/* Кнопка мобильного меню */
 .menu-toggle {
-  display: none; /* включить через медиазапрос для мобильного */
+  display: none;
 }
+/* --- Адаптивное меню для планшетов и мобильных --- */
+/* --- Адаптивное меню для планшетов и мобильных --- */
+@media (max-width: 992px) {
+  .header-top .main-nav {
+    padding: 10px 20px;
+    flex-wrap: nowrap;
+    height: auto;
+    min-height: 70px;
+  }
+
+  .main-nav {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    height: auto;
+  }
+
+  .logo-center a {
+    font-size: 20px;
+  }
+
+  .menu-toggle {
+    display: block;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: all 0.3s ease;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #3982c2;
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  /* Меню на всю ширину ПОД header-top */
+  .nav-left {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    margin: 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.652);
+    backdrop-filter: blur(8px);
+    border-top: 1px solid rgba(57, 130, 194, 0.2);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    
+    /* Анимация выезжания */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .nav-left.active {
+    max-height: 500px; /* Достаточно для всех пунктов */
+    opacity: 1;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transform: scaleY(1);
+  }
+
+  .nav-left li {
+    font-size: 14px;
+    width: 60%;
+    margin: 0 auto;
+    border: 1px solid #3982c2;
+    border-radius: 50px;
+    padding: 10px 15px;
+    background: white;
+    text-align: center;
+    list-style: none;
+    
+    /* Анимация появления пунктов */
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .nav-left.active li {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .nav-left.active li:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+
+  .nav-left.active li:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+
+  .nav-left.active li:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+
+  .nav-left.active li:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+}
+
 #hero_image {
-    background-color: #fefaf1;
+  background-color: #fefaf1;
 }
-
-.hero {
-    /*background-color: #fefaf1;
-    padding: 40px 0;*/
-}
-
 
 .hero .container {
   height: 80vh;
   width: 100%;
   max-width: 1500px;
-  /*height: 90vh;
-  width: 95%;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 20px;
-  overflow: hidden*/
-
-  /* Горизонтальный градиент поверх изображения */
-  background-image:
-    linear-gradient(to right,#3982c2a2, #50b85096),
-    url('../images/cleaning2.jpg');
-
+  background-image: linear-gradient(to right, #3982c2a2, #50b85096), url('../images/cleaning2.jpg');
   background-size: cover;
   background-position: center;
-
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #fff;
-
   position: relative;
   box-sizing: border-box;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Текст и кнопка внутри */
 .hero-content h1 {
   font-size: 42px;
   margin: 0 0 20px 0;
@@ -143,75 +252,94 @@ body {
   margin: 0 0 30px 0;
 }
 
-/* Кнопка */
 .hero-button span {
   display: inline-block;
-  padding: 20px 50px;      /* увеличиваем внутренние отступы */
+  padding: 20px 50px;
   background-color: #ffffff;
   color: #3982c2;
   font-weight: 600;
-  border-radius: 50px;      /* крупные закруглённые края */
+  border-radius: 50px;
   cursor: pointer;
   transition: background 0.3s;
-  font-size: 18px;          /* при необходимости увеличить текст */
+  font-size: 18px;
 }
 
 .hero-button span:hover {
   background-color: #c2e3ffd5;
 }
 
-.advantages {
-    background-color: #ffffff;
+/* --- Адаптив для экранов 768px и меньше (телефоны) --- */
+@media (max-width: 768px) {
+  .hero .container {
+    height: 50vh; /* уменьшаем высоту секции */
+    padding: 0 15px; /* меньше отступы */
+    background-position: center top; /* лучше центрируем фон */
+  }
+
+  .hero-content h1 {
+    font-size: 22px; /* заголовок под экран телефона */
+    line-height: 1.2; /* чтобы не занимал слишком много места */
+  }
+
+  .hero-content p {
+    font-size: 14px; /* текст компактный */
+    margin-bottom: 20px;
+  }
+
+  .hero-button span {
+    padding: 10px 20px; /* компактная кнопка */
+    font-size: 14px;
+  }
 }
 
-.advantages .container{
-    
-  max-width: 800px;           /* ширина блока */
-  margin: 0 auto;             /* центрируем блок на странице */
+.advantages {
+  background-color: #ffffff;
+}
+
+.advantages .container {
+  width: 100%;
+  max-width: 800px;
+  margin: 100px auto;
   padding: 100px 20px;
 }
 
 .advantages h2 {
-  text-align: center;         /* заголовок блока по центру */
+  text-align: center;
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 60px;
 }
 
 .advantages p.intro {
-  text-align: center;       /* текст по центру внутри абзаца */
-  max-width: 80%;           /* ограничиваем ширину */
-  margin: 0 auto 80px auto; /* сверху 0, слева/справа auto, снизу 80px */
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto 80px auto;
   font-size: 18px;
   color: #555;
 }
 
-/* Список преимуществ */
 .advantages ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;     /* элементы идут друг под другом */
-  gap: 30px;                  /* расстояние между элементами */
+  flex-direction: column;
+  gap: 30px;
 }
 
-/* Один элемент списка: иконка слева, текст справа */
 .advantages ul li {
-  display: flex;              /* иконка слева, текст справа */
+  display: flex;
   align-items: flex-start;
-  gap: 20px;   
-  padding: 30px  0;               /* расстояние между иконкой и текстом */
+  gap: 20px;
+  padding: 30px 0;
 }
 
-/* Иконка */
 .advantages ul li img {
   width: 80px;
   height: auto;
-  flex-shrink: 0;             /* чтобы не сжималась */
+  flex-shrink: 0;
 }
 
-/* Текстовая часть: заголовок сверху, параграф снизу */
 .advantages ul li .text {
   display: flex;
   flex-direction: column;
@@ -229,18 +357,40 @@ body {
   color: #666;
 }
 
-/* Контейнер блока */
+@media (max-width: 768px) {
+  .advantages .container {
+    margin: 50px auto;
+    padding: 50px 15px;
+  }
 
-.why-us{
+  .advantages p.intro {
+    max-width: 100%;
+    margin: 0 0 40px 0;
+    font-size: 16px;
+  }
+
+  .advantages ul li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .advantages ul li img {
+    width: 60px;
+  }
+}
+
+.why-us {
   background-color: #a9d3f850;
 }
-.why-us .container{
-  max-width: 1300px;         /* ширина блока */
+
+.why-us .container {
+  max-width: 1300px;
   margin: 0 auto 150px auto;
-  padding: 50px 20px;
+  padding: 200px 20px;
 }
 
-/* Заголовок и интро */
 .why-us h2 {
   text-align: center;
   font-size: 40px;
@@ -256,35 +406,31 @@ body {
   color: #555;
 }
 
-/* Список элементов */
 .why-us ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;           /* перенос элементов */
-  gap: 40px;                 /* расстояние между элементами */
-  justify-content: center;   /* центрируем ряды */
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
 }
 
-/* Элемент списка */
 .why-us ul li {
-  display: flex;             /* иконка слева, текст справа */
+  display: flex;
   align-items: flex-start;
   gap: 15px;
-  width: calc(50% - 20px);  /* по два элемента в ряд, учитываем gap */
+  width: calc(50% - 20px);
   box-sizing: border-box;
-  margin-bottom: 20px;       /* отступ снизу между рядами */
+  margin-bottom: 20px;
 }
 
-/* Иконка */
 .why-us ul li img {
   width: 30px;
   height: 30px;
   flex-shrink: 0;
 }
 
-/* Текст */
 .why-us ul li .text {
   display: flex;
   flex-direction: column;
@@ -302,28 +448,23 @@ body {
   color: #666;
 }
 
-/* Адаптив: на узких экранах один элемент в ряд */
 @media (max-width: 768px) {
   .why-us ul li {
     width: 100%;
   }
 }
 
-
-/* Секция */
 .steps {
   width: 100%;
   background-color: #ffffff;
   padding: 30px 20px 60px 20px;
 }
 
-/* контейнер */
 .steps .container {
-  max-width: 1100px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
-/* заголовок */
 .steps h2 {
   text-align: center;
   font-size: 32px;
@@ -336,10 +477,9 @@ body {
   margin: 0 auto 60px auto;
   font-size: 18px;
   color: #555;
-  padding:30px 0 60px 0;
+  padding: 30px 0 60px 0;
 }
 
-/* блок карточек */
 .steps-grid {
   display: flex;
   gap: 30px;
@@ -347,9 +487,8 @@ body {
   flex-wrap: wrap;
 }
 
-/* карточка этапа */
 .step {
-  background: #ffffff;   /* другой фон */
+  background: #ffffff;
   padding: 40px 25px;
   border-radius: 14px;
   width: 300px;
@@ -357,51 +496,46 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* цифра */
-/* цифра в круге */
 .step-number {
   width: 50px;
   height: 50px;
-  background-color: #3982c2;   /* цвет круга */
-  color: #fff;                 /* цвет цифры */
-  border-radius: 50%;          /* делает круг */
+  background-color: #3982c2;
+  color: #fff;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   font-weight: 700;
-  margin: 0 auto 15px auto;    /* центрируем и отступ снизу */
+  margin: 0 auto 15px auto;
 }
 
-/* заголовок */
 .step h3 {
   font-size: 20px;
   margin-bottom: 10px;
 }
 
-/* текст */
 .step p {
   font-size: 16px;
   color: #666;
   margin: 0;
 }
 
-/* адаптив */
 @media (max-width: 900px) {
   .step {
     width: 100%;
   }
 }
+
 .prices-section {
-  margin:100px;
+  margin: 100px;
 }
 
-.prices-section .title{
+.prices-section .title {
   font-size: 40px;
   margin: 50px 0;
 }
 
-/* Табы */
 .tabs {
   display: flex;
   gap: 10px;
@@ -425,9 +559,6 @@ body {
   color: white;
 }
 
-
-
-/* Контент табов */
 .tab-content {
   display: none;
 }
@@ -436,9 +567,8 @@ body {
   display: block;
 }
 
-/* Аккордеон */
 .price-item {
-  border-radius: 20px; 
+  border-radius: 20px;
   background: #f8f9fa;
   border-radius: 12px;
   margin-bottom: 12px;
@@ -459,7 +589,7 @@ body {
 }
 
 .price-header.active {
-  border-radius: 20px 20px 0 0; /* когда открыто - сверху закруглено */
+  border-radius: 20px 20px 0 0;
 }
 
 .price-header::after {
@@ -488,10 +618,37 @@ body {
 }
 
 .price-body.active {
-  max-height: 300px !important; /* Достаточно для списка */
+  max-height: 500px !important;
   padding: 20px !important;
   border-top-color: #e9ecef;
   opacity: 1;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.price-table th {
+  text-align: left;
+  padding: 12px 20px;
+  background: #f5f5f5;
+}
+
+.price-table td {
+  padding: 10px 20px;
+  border-bottom: 1px dashed #e9ecef;
+}
+
+.price-table td:last-child {
+  text-align: right;
+  font-weight: 600;
+}
+
+.price-table tr td[colspan] {
+  font-weight: 700;
+  padding-top: 18px;
+  background: #fafafa;
 }
 
 .price-body li {
@@ -503,150 +660,219 @@ body {
   border-bottom: none;
 }
 
+@media (max-width: 768px) {
+  .prices-section {
+    margin: 50px 15px;
+  }
+
+  .prices-section .title {
+    font-size: 28px;
+    margin: 30px 0;
+  }
+
+  .tabs {
+    justify-content: center;
+  }
+
+  .tab {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  .price-header {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .price-body.active {
+    padding: 15px !important;
+  }
+
+  .price-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+}
+
 .discounts-block {
-    margin-top:40px;
-    padding:20px;
-    background:#f9f9f9;
-    border-radius:15px;
-  }
-  .discounts-block h3 {
-    font-size:20px;
-    margin-bottom:15px;
-  }
-  .discounts-block ul {
-    list-style:none;
-    padding:0;
-  }
-  .discounts-block li {
-    font-size:16px;
-    margin-bottom:8px;
-  }
-  .discounts-block strong {
-    color:#d9534f;
-  }
-  
-.price-calc{
-padding:100px 20px;
-background:#a9d3f850;
-text-align:center;
-color:white;
+  margin-top: 40px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 15px;
 }
 
-.calc-title{
+.discounts-block h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.discounts-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.discounts-block li {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.discounts-block strong {
+  color: #d9534f;
+}
+
+.price-calc {
+  padding: 100px 20px;
+  background: #a9d3f850;
+  text-align: center;
+  color: white;
+}
+
+.calc-title {
   color: #000;
-font-size:48px;
-margin-bottom:60px;
+  font-size: 48px;
+  margin-bottom: 60px;
 }
 
-.calc-categories{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:25px;
-margin-bottom:50px;
+.calc-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 50px;
 }
 
-.calc-card{
-position:relative;
-background: #6bade7d8 ;
-border-radius:25px;
-padding:25px;
-height:180px;
-cursor:pointer;
-overflow:hidden;
-transition:.3s;
+.calc-card {
+  position: relative;
+  background: #6bade7d8;
+  border-radius: 25px;
+  padding: 25px;
+  height: 180px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: .3s;
 }
 
-.calc-card:hover{
-transform:translateY(-5px);
+.calc-card:hover {
+  transform: translateY(-5px);
 }
 
-.calc-card span{
-position:absolute;
-top:20px;
-left:20px;
-font-weight:600;
+.calc-card span {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-weight: 600;
 }
 
-.calc-card img{
-position:absolute;
-bottom:-10px;
-right:-10px;
-width:140px;
-transition: all .3s ease;
+.calc-card img {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  width: 250px;
+  transition: all .3s ease;
 }
 
-.check{
-position:absolute;
-bottom:20px;
-left:20px;
-width:50px;
-height:50px;
-background:white;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
+.check {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.calc-card.active .check::after{
-content:"✓";
-font-size:22px;
-font-weight:700;
-color:#3982c2;
+.calc-card.active .check::after {
+  content: "✓";
+  font-size: 22px;
+  font-weight: 700;
+  color: #3982c2;
 }
 
-.calc-form{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-margin-bottom:15px;
+.calc-form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 
-.calc-form input{
-padding:18px 25px;
-border-radius:30px;
-border:1px solid #3982c2;
-background:transparent;
-color:white;
-width:250px;
+.calc-form input {
+  padding: 18px 25px;
+  border-radius: 30px;
+  border: 1px solid #3982c2;
+  background: transparent;
+  color: rgb(0, 0, 0);
+  width: 250px;
 }
 
-.calc-btn{
-padding:18px 35px;
-border:none;
-border-radius:30px;
-background:#3982c2;
-color:white;
-font-weight:600;
-cursor:pointer;
+.calc-btn {
+  padding: 18px 35px;
+  border: none;
+  border-radius: 30px;
+  background: #3982c2;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.policy{
-  color: #000;
-font-size:14px;
-opacity:.8;
+.calc-card.active {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+  border: 3px solid #3982c2;
 }
 
-.calc-card.active{
-  box-shadow:0 10px 25px rgba(0,0,0,0.4);
-  border:3px solid #3982c2;
+@media (max-width: 768px) {
+  .price-calc {
+    padding: 50px 15px;
+  }
+
+  .calc-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .calc-categories {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .calc-card {
+    height: 140px;
+    padding: 15px;
+  }
+
+  .calc-card img {
+    width: 180px;
+  }
+
+  .calc-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .calc-form input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .calc-btn {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
-/* секция */
 .fast-clean {
   width: 100%;
   background: #a9d3f850;
   padding: 30px 20px;
 }
 
-/* контейнер */
 .fast-clean .container {
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 100px auto;
 }
 
-/* заголовок */
 .fast-clean h2 {
   text-align: center;
   font-size: 32px;
@@ -662,27 +888,22 @@ opacity:.8;
   color: #555;
 }
 
-/* список */
 .fast-clean ul {
   list-style: none;
   padding: 0;
-  margin: 0 auto;        /* центрирует список */
-  max-width: 1000px;      /* ограничивает ширину */
-
+  margin: 0 auto;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-/* элементы списка */
 .fast-clean li {
   display: flex;
   align-items: center;
   gap: 20px;
-
 }
 
-/* картинка */
 .fast-clean img {
   width: 410px;
   height: 260px;
@@ -691,7 +912,6 @@ opacity:.8;
   flex-shrink: 0;
 }
 
-/* текст */
 .fast-clean .text {
   display: flex;
   flex-direction: column;
@@ -710,68 +930,127 @@ opacity:.8;
 }
 
 .fast-clean-info {
-    margin-top: 50px;
-    padding: 50px 20px;
-    background:  #3982c2;
-    border-radius: 20px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    text-align: center;
-    color: #fff;
+  margin-top: 50px;
+  padding: 50px 20px;
+  background: #3982c2;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  text-align: center;
+  color: #fff;
 }
 
-.fast-clean-info .container{
+.fast-clean-info .container {
   width: 600px;
   align-items: center;
   justify-content: center;
 }
 
 .fast-clean-info h3 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 40px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 40px;
 }
 
 .fast-clean-info .highlight {
-    color: #fff200; /* яркий жёлтый для выделения */
+  color: #fff200;
+}
+
+
+
+.extra-info {
+  color: #000;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding-left: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .fast-clean .container {
+    margin: 50px auto;
+  }
+
+  .fast-clean h2 {
+    font-size: 24px;
+    margin-top: 40px;
+  }
+
+  .fast-clean .intro {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .fast-clean li {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fast-clean img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .fast-clean .text {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .fast-clean h3 {
+    font-size: 20px;
+  }
+
+  .fast-clean-info .container {
+    width: 100%;
+  }
+
+  .info-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-card {
+    width: 100%;
+    max-width: 300px;
+  }
 }
 
 .info-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
 }
 
 .info-card {
-    background: rgba(255,255,255,0.15);
-    padding: 20px 15px;
-    border-radius: 15px;
-    width: 260px;
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s, background 0.3s;
+  background: rgba(255,255,255,0.15);
+  padding: 20px 15px;
+  border-radius: 15px;
+  width: 260px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s, background 0.3s;
 }
 
 .info-card:hover {
-    transform: translateY(-7px);
-    background: rgba(255,255,255,0.25);
+  transform: translateY(-7px);
+  background: rgba(255,255,255,0.25);
 }
 
 .info-card .icon {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .info-card p {
-    margin: 0;
-    font-size: 16px;
-    color: #fff;
-    text-align: left;
+  margin: 0;
+  font-size: 16px;
+  color: #fff;
+  text-align: left;
 }
 
 .info-card .highlight {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 footer {
@@ -780,44 +1059,37 @@ footer {
   padding: 60px 20px;
 }
 
-/* контейнер */
 .footer-container {
   max-width: 1100px;
   margin: 0 auto;
-
   display: flex;
   justify-content: space-between;
   gap: 40px;
   flex-wrap: wrap;
 }
 
-/* колонка */
 .footer-col {
   flex: 1;
   min-width: 220px;
 }
 
-/* логотип */
 .footer-logo {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 15px;
 }
 
-/* описание */
 .footer-desc {
   color: #ccc;
   font-size: 15px;
   line-height: 1.6;
 }
 
-/* заголовки */
 .footer-col h3 {
   margin-bottom: 15px;
   font-size: 18px;
 }
 
-/* список контактов */
 .contact-list {
   list-style: none;
   padding: 0;
@@ -831,7 +1103,6 @@ footer {
   margin-bottom: 10px;
 }
 
-/* ссылки */
 .contact-list a {
   color: #fff;
   text-decoration: none;
@@ -841,30 +1112,40 @@ footer {
   text-decoration: underline;
 }
 
-/* текст под кнопкой */
 .footer-subtext {
   color: #ccc;
   font-size: 14px;
   margin-bottom: 15px;
 }
 
-/* кнопка WhatsApp */
 .whatsapp-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   background: #25D366;
   color: white;
   text-decoration: none;
-
   padding: 12px 18px;
   border-radius: 8px;
-
   font-weight: 600;
   transition: 0.3s;
 }
 
 .whatsapp-btn:hover {
   background: #1ebe5d;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .footer-col {
+    text-align: center;
+  }
+
+  .contact-list li {
+    justify-content: center;
+  }
 }
