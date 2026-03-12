@@ -1,47 +1,27 @@
+// 1. Мобильное меню
 const menuToggle = document.querySelector('.menu-toggle');
 const navLeft = document.querySelector('.nav-left');
 
-menuToggle.addEventListener('click', () => {
-  navLeft.classList.toggle('active'); // меню открывается/закрывается
-  menuToggle.classList.toggle('open'); // анимация гамбургера
-});
-
-navLeft.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    navLeft.classList.remove('active'); // закрытие при клике на ссылку
-    menuToggle.classList.remove('open');
+if (menuToggle && navLeft) {
+  menuToggle.addEventListener('click', () => {
+    navLeft.classList.toggle('active'); 
+    menuToggle.classList.toggle('open'); 
   });
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const calcCards = document.querySelectorAll(".calc-card");
-  const hiddenInput = document.getElementById("selected-category");
-  let selectedCategory = "";
-
-  calcCards.forEach(card => {
-    card.addEventListener("click", () => {
-      calcCards.forEach(c => c.classList.remove("active"));
-      card.classList.add("active");
-
-      selectedCategory = card.dataset.category;
+  navLeft.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLeft.classList.remove('active'); 
+      menuToggle.classList.remove('open');
     });
   });
+}
 
-  const form = document.getElementById("calcForm");
-  form.addEventListener("submit", (e) => {
-    if (!selectedCategory) {
-      e.preventDefault();
-      alert("Выберите категорию услуги!");
-      return false;
-    }
-    hiddenInput.value = selectedCategory; 
-  });
-});
-
+// 2. Табы и аккордеон в секции Цен
 document.addEventListener('DOMContentLoaded', function() {
   const tabs = document.querySelectorAll('.tab');
   const contents = document.querySelectorAll('.tab-content');
   
+  // Переключение табов
   tabs.forEach(tab => {
     tab.addEventListener('click', function() {
       tabs.forEach(t => t.classList.remove('active'));
@@ -58,18 +38,18 @@ document.addEventListener('DOMContentLoaded', function() {
         targetContent.classList.add('active');
       }
       
+      // Закрываем все открытые аккордеоны при смене таба
       document.querySelectorAll('.price-header').forEach(header => {
         header.classList.remove('active');
       });
-      
       document.querySelectorAll('.price-body').forEach(body => {
         body.classList.remove('active');
       });
     });
   });
   
+  // Аккордеон внутри табов
   const headers = document.querySelectorAll('.price-header');
-
   headers.forEach(header => {
     header.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -77,45 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (!body || !body.classList.contains('price-body')) return;
       
+      // Переключаем текущий
       this.classList.toggle('active');
       body.classList.toggle('active');
     });
-  });
-});
-
-document.querySelectorAll(".calc-card").forEach(card => {
-  card.addEventListener("click", function() {
-    document.querySelectorAll(".calc-card").forEach(c => {
-      c.classList.remove("active");
-    });
-    
-    this.classList.add("active");
-    
-    let tab = this.dataset.tab;
-
-    document.querySelectorAll(".tab").forEach(t => {
-      t.classList.remove("active");
-    });
-
-    document.querySelectorAll(".tab-content").forEach(content => {
-      content.classList.remove("active");
-    });
-
-    document.querySelector('.tab[data-tab="' + tab + '"]').classList.add("active");
-    document.getElementById(tab).classList.add("active");
-
-    document.querySelector(".prices-section").scrollIntoView({
-      behavior: "smooth"
-    });
-  });
-});
-
-document.querySelectorAll(".calc-card").forEach(card => {
-  card.addEventListener("click", () => {
-    document.querySelectorAll(".calc-card").forEach(c => {
-      c.classList.remove("active");
-    });
-
-    card.classList.add("active");
   });
 });
