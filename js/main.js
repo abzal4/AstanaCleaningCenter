@@ -63,3 +63,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+
+let currentSlide = 0;
+
+function updateDots(index) {
+  dots.forEach(dot => dot.classList.remove('active'));
+  dots[index].classList.add('active');
+}
+
+function showSlide(nextIndex) {
+  slides[currentSlide].classList.remove('active');
+  slides[nextIndex].classList.add('active');
+
+  currentSlide = nextIndex;
+  updateDots(currentSlide);
+}
+
+// Кнопки
+document.querySelector('.next').addEventListener('click', () => {
+  const nextIndex = (currentSlide + 1) % slides.length;
+  showSlide(nextIndex);
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+  const nextIndex = (currentSlide - 1 + slides.length) % slides.length;
+  showSlide(nextIndex);
+});
+
+// Клики по точкам
+dots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const index = parseInt(dot.dataset.slide);
+    showSlide(index);
+  });
+});
+
+// Автопереключение
+setInterval(() => {
+  const nextIndex = (currentSlide + 1) % slides.length;
+  showSlide(nextIndex);
+}, 8000);

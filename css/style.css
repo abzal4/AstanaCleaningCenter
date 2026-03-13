@@ -5,6 +5,7 @@
   --navy:       #0d1b2a;
   --navy-mid:   #1a2e42;
   --navy-light: #243b55;
+  --navy-lighter: #7f9ab8;
   --gold:       #c9a84c;
   --gold-light: #e2c47e;
   --gold-pale:  #f5e9cc;
@@ -27,7 +28,7 @@
 }
 
 html {
-  scroll-behavior: smooth; /* Плавная прокрутка к якорям */
+  scroll-behavior: smooth; 
 }
 
 body {
@@ -66,6 +67,11 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   color: var(--gold-light);
+}
+
+.logo-center img{
+  max-height: 80px;
+  filter: brightness(0) invert(1); 
 }
 
 .main-nav ul {
@@ -167,21 +173,47 @@ body {
 }
 
 /* ===================== HERO ===================== */
-.hero .container {
-  height: 88vh;
-  width: 100%;
-  max-width: 100%;
-  background-image:
-    linear-gradient(135deg, rgba(13,27,42,0.88) 0%, rgba(13,27,42,0.55) 50%, rgba(26,46,66,0.75) 100%),
-    url('../images/cleaning2.jpg');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--white);
+.hero {
   position: relative;
+  height: 88vh;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background: linear-gradient(
+    135deg,
+    rgba(13,27,42,0.88) 0%,
+    rgba(13,27,42,0.55) 50%,
+    rgba(26,46,66,0.75) 100%
+  );
+
+  z-index:-1;
+}
+
+.hero .container{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:var(--white);
 }
 
 .hero .container::before {
@@ -226,7 +258,6 @@ body {
   line-height: 1.8;
 }
 
-/* Премиальная кнопка на главном экране */
 .hero-button {
   text-decoration: none;
 }
@@ -274,78 +305,297 @@ body {
   text-align: center;
 }
 
-/* ===================== ADVANTAGES ===================== */
-.advantages {
-  background: var(--white);
-  padding: 100px 20px;
+/* ===================== SECTION ADVANTAGES ===================== */
+.advantages-slider {
+  background: var(--cream);
+  padding: 100px 40px 40px 40px;
+  text-align: center;
 }
 
-.advantages .container {
-  max-width: 840px;
+.advantages-slider .intro {
+  max-width: 900px;
+  margin: 15px auto 60px auto;
+  font-size: 18px;
+  color: var(--gray-text);
+  line-height: 1.6;
+}
+
+.advantages-slider h2 {
+  font-size: 42px;
+  color: var(--navy);
+  margin-bottom: 20px;
+  line-height: 1.2;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slider-wrapper {
+  position: relative;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
-.advantages h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 46px;
-  font-weight: 400;
-  text-align: center;
-  letter-spacing: 0.02em;
-  margin-bottom: 16px;
+.slider {
+  overflow: hidden;
+  position: relative;
+  height: 420px;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.slide img {
+  width: 520px;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+  transition: transform 0.5s ease;
+}
+
+.slide.active img {
+  transform: scale(1);
+  animation: fadeInUp 0.8s ease;
+}
+
+.slide.active .text {
+  animation: fadeInRight 0.8s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide .text {
+  text-align: left;
+  flex: 1;
+}
+
+.slide .text h3 {
+  font-size: 26px;
   color: var(--navy);
+  margin-bottom: 12px;
 }
 
-.advantages p.intro {
-  text-align: center;
-  max-width: 580px;
-  margin: 0 auto 70px;
-  font-size: 16px;
-  color: var(--text-mid);
-  line-height: 1.8;
-  font-weight: 400;
+.slide .text p {
+  font-size: 17px;
+  color: var(--gray-text);
+  line-height: 1.6;
 }
 
-.advantages ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.advantages ul li {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-  padding: 36px 0;
-  border-bottom: 1px solid var(--border);
-}
-.advantages ul li:first-child { border-top: 1px solid var(--border); }
-
-.advantages ul li img {
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
-  opacity: 0.85;
-}
-
-.advantages ul li .text h3 {
-  font-family: 'Cormorant Garamond', serif;
+/* Кнопки навигации */
+.prev,
+.next {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: var(--cream);
+  border: 2px solid var(--navy-light);
+  color: var(--navy-light);
   font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: var(--navy);
+  width: 54px;
+  height: 54px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(57, 130, 194, 0.2);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }
 
-.advantages ul li .text p {
-  font-size: 15px;
-  color: var(--text-mid);
-  line-height: 1.75;
-  font-weight: 400;
+.prev { left: -60px; }
+.next { right: -60px; }
+
+.prev:hover,
+.next:hover {
+  background: var(--navy-mid);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 8px 20px rgba(57, 130, 194, 0.4);
+}
+
+/* Точки под слайдером */
+.dots {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  z-index: 15;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 10px;
+  background-color: var(--navy-lighter);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: var(--navy-mid);
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  background-color: var(--navy);
+}
+
+@media (max-width: 1200px) {
+  .advantages-slider {
+    padding: 80px 30px 30px 30px;
+  }
+  
+  .prev { left: -40px; }
+  .next { right: -40px; }
+}
+
+@media (max-width: 992px) {
+  .advantages-slider {
+    padding: 70px 20px 30px 20px;
+  }
+  
+  .advantages-slider h2 {
+    font-size: 36px;
+  }
+  
+  .advantages-slider .intro {
+    font-size: 17px;
+    margin: 15px auto 50px auto;
+  }
+  
+  .slider {
+    height: auto;
+    min-height: 500px;
+  }
+  
+  .slide {
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    display: none;
+  }
+  
+  .slide.active {
+    display: flex;
+  }
+  
+  .slide img {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+  }
+  
+  .slide .text {
+    text-align: center;
+    padding: 0 10px;
+  }
+  
+  .slide .text h3 {
+    font-size: 24px;
+  }
+  
+  .slide .text p {
+    font-size: 16px;
+  }
+  
+  .prev,
+  .next {
+    top: 35%;
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+  
+  .prev { left: 10px; }
+  .next { right: 10px; }
+  
+  .dots {
+    position: relative;
+    bottom: 50px;
+  }
 }
 
 @media (max-width: 768px) {
-  .advantages { padding: 60px 20px; }
-  .advantages ul li { flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+  .advantages-slider {
+    padding: 60px 15px 30px 15px;
+  }
+  
+  .advantages-slider h2 {
+    font-size: 28px;
+  }
+  
+  .advantages-slider .intro {
+    font-size: 16px;
+    margin: 15px auto 40px auto;
+  }
+  
+  .slider {
+    min-height: 450px;
+  }
+  
+  .slide img {
+    height: 250px;
+  }
+  
+  .slide .text h3 {
+    font-size: 22px;
+  }
+  
+  .slide .text p {
+    font-size: 15px;
+  }
+  
+  .prev,
+  .next {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 8px;
+  }
 }
 
 /* ===================== WHY US ===================== */
